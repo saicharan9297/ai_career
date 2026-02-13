@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Career Platform</title>
+    <style>
+        body { font-family: Arial; margin: 0; padding: 0; }
+        nav { background: #222; padding: 15px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        .container { padding: 30px; }
+        button { padding: 8px 15px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    {% if session.get("user_id") %}
+        <a href="/dashboard">Dashboard</a>
+        <a href="/">Practice</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    {% endif %}
+</nav>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

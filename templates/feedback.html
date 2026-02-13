@@ -1,0 +1,7 @@
+<h2>Evaluation Result</h2>
+<p>{{ feedback }}</p>
+
+<form method="POST" action="/generate_question">
+    <input type="hidden" name="difficulty" value="{{ new_difficulty }}">
+    <button type="submit">Next Question</button>
+</form>

@@ -1,0 +1,9 @@
+flask
+flask_sqlalchemy
+flask_login
+python-dotenv
+openai
+faiss-cpu
+numpy
+sentence-transformers
+requests
