@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="app-layout">
+    <aside class="app-sidebar">
+    <div class="sidebar-top">
+        <div class="user-profile">
+            <div class="avatar">{{ session.username[0]|upper }}</div>
+            <div class="user-info">
+                <span class="user-name">{{ session.username }}</span>
+                <span class="user-status">Profile</span>
+            </div>
+        </div>
+
+        <nav class="nav-links">
+            <a href="/dashboard" class="active">
+                <i class="icon">📊</i> Dashboard
+            </a>
+            <a href="/generate_question">
+                <i class="icon">🎙️</i> Practice Interview
+            </a>
+            <a href="/roadmap">
+                <i class="icon">🗺️</i> My Roadmaps
+            </a>
+        </nav>
+    </div>
+    <a href="/logout" class="logout-link">Logout</a>
+</aside>
+
+    <main class="app-main">
+        <div class="dashboard-header">
+            <h2>Welcome to your Dashboard</h2>
+            <p>Ready to level up your career today?</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="glass-card roadmap-form">
+                <h3>Generate New Roadmap</h3>
+                <form method="POST" action="/roadmap">
+                    <div class="input-row">
+                        <input type="text" name="age" placeholder="Age" required>
+                        <input type="text" name="education" placeholder="Education" required>
+                    </div>
+                    <input type="text" name="role" placeholder="Target Role (e.g. Frontend Developer)" required>
+                    <input type="number" name="hours" placeholder="Study hours per day" required>
+                    <button type="submit" class="btn-primary full-width">Generate AI Plan</button>
+                </form>
+            </div>
+
+            <div class="glass-card stats-card">
+                <h3>Quick Stats</h3>
+                <div class="stat-item">
+                    <span>Rank</span>
+                    <strong>Beginner</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Interviews Done</span>
+                    <strong>0</strong>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

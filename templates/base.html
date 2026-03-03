@@ -1,31 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>AI Career Platform</title>
-    <style>
-        body { font-family: Arial; margin: 0; padding: 0; }
-        nav { background: #222; padding: 15px; }
-        nav a { color: white; margin-right: 15px; text-decoration: none; }
-        .container { padding: 30px; }
-        button { padding: 8px 15px; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Pro | Your Path to Success</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">Ai career pro</a>
+            
+            <div class="nav-links">
+                {% if session.get("user_id") %}
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/roadmap">Roadmap</a>
+                    <a href="/logout" class="auth-btn logout">Logout</a>
+                {% else %}
+                    <a href="/login">Login</a>
+                    <a href="/register" class="auth-btn signup">signup</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
 
-<nav>
-    {% if session.get("user_id") %}
-        <a href="/dashboard">Dashboard</a>
-        <a href="/">Practice</a>
-        <a href="/logout">Logout</a>
-    {% else %}
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
-    {% endif %}
-</nav>
+    <div class="content-area">
+        {% block content %}{% endblock %}
+    </div>
 
-<div class="container">
-    {% block content %}{% endblock %}
-</div>
-
+    <footer class="glass-footer">
+        <p>AI Career Pro. Built for your future.</p>
+    </footer>
 </body>
 </html>

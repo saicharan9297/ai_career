@@ -1,12 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Practice Interview</h2>
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Elevate Your Career with <span class="text-gradient">AI Intelligence</span></h1>
+        <p>Generate personalized roadmaps and practice real-world mock interviews with our advanced AI engine.</p>
+        <div class="hero-btns">
+            <a href="/register" class="btn-primary">Get Started</a>
+            <a href="#features" class="btn-secondary">Learn More</a>
+        </div>
+        
+    </div>
+    
+</section>
 
-<form method="POST" action="/generate_question">
-    <input type="text" name="role" placeholder="Enter Role"><br><br>
-    <input type="text" name="topic" placeholder="Enter Topic"><br><br>
-    <input type="number" name="difficulty" placeholder="Difficulty (1-5)"><br><br>
-    <button type="submit">Generate Question</button>
-</form>
+<section id="features" class="features-grid">
+    <div class="feature-card">
+        <span class="icon-box">🗺️</span>
+        <h3>Smart Roadmaps</h3>
+        <p>Custom learning paths based on your role, education, and daily availability. Perfectly tailored for your goals.</p>
+    </div>
+
+    <div class="feature-card">
+        <span class="icon-box">🤖</span>
+        <h3>AI Interviews</h3>
+        <p>Interactive mock interviews with adaptive difficulty. Get real-time feedback and sharpen your skills.</p>
+    </div>
+</section>
 {% endblock %}

@@ -4,6 +4,20 @@ from models.models import db, User
 from rag.rag_engine import generate_question
 from services.adaptive_engine import adjust_difficulty
 from services.roadmap_service import generate_roadmap
+# from flask import Flask, render_template, request, session, redirect, url_for
+# from config import Config
+# from models.models import db, User
+
+#  This "Try" block lets the server start even if the library is 'missing'
+# try:
+#     from rag.rag_engine import generate_question
+#     from services.adaptive_engine import adjust_difficulty
+#     from services.roadmap_service import generate_roadmap
+# except ModuleNotFoundError:
+#     print("⚠️ AI modules not found, but starting server for Frontend testing...")
+#     generate_question = None 
+#     adjust_difficulty = None
+#     generate_roadmap = None
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -65,12 +79,21 @@ def login():
         if user and user.check_password(password):
             session["user_id"] = user.id
             session["username"] = user.username
-            return redirect(url_for("index"))
+            return redirect(url_for("dashboard"))
         else:
             return "Invalid credentials!", 401
 
     return render_template("login.html")
-
+# ===================================
+# Dashboard Page
+# ===================================
+@app.route("/dashboard")
+def dashboard():
+    # Only allow logged-in users to see the dashboard
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    
+    return render_template("dashboard.html", username=session.get("username"))
 
 # ===================================
 # Logout
