@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4 text-center">AI-Generated Quiz - {{ current_user.target_role or 'Career Prep' }}</h2>
+
+    {% if error %}
+        <div class="alert alert-danger text-center">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if questions and questions|length > 0 %}
+        
+        {% if score %}
+            <!-- Results / Feedback shown after submit -->
+            <div class="alert alert-success text-center mb-4">
+                <h4>{{ score }}</h4>
+            </div>
+
+            <div class="card bg-dark text-light mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Detailed Feedback</h5>
+                    <div style="white-space: pre-wrap; line-height: 1.6;">
+                        {{ feedback | safe }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="{{ url_for('quiz.index') }}" class="btn btn-primary btn-lg px-4 me-3">
+                    Retake Quiz
+                </a>
+                <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-secondary btn-lg px-4">
+                    Back to Dashboard
+                </a>
+            </div>
+        {% else %}
+            <!-- Quiz form (questions + radio buttons) -->
+            <form method="POST" action="{{ url_for('quiz.index') }}">
+
+                {% for q in questions %}
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">
+                            Q{{ loop.index }}: {{ q.question }}
+                        </h5>
+
+                        {% set question_index = loop.index0 %}
+
+                        {% for option in q.options %}
+                        <div class="form-check mb-2">
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                name="q{{ question_index }}" 
+                                id="q{{ question_index }}_opt{{ loop.index0 }}" 
+                                value="{{ loop.index0 }}" 
+                                required
+                            >
+                            <label class="form-check-label" for="q{{ question_index }}_opt{{ loop.index0 }}">
+                                {{ option }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="text-center mt-5 mb-5">
+                    <button type="submit" class="btn btn-success btn-lg px-5 py-3">
+                        Submit Quiz
+                    </button>
+                </div>
+
+            </form>
+        {% endif %}
+
+    {% else %}
+        <div class="alert alert-warning text-center py-5">
+            <h4>No questions loaded</h4>
+            <p>Try refreshing the page or check the server logs for any LLM generation issues.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Your Progress</h2>
+
+<div class="progress mb-4">
+    <div class="progress-bar" style="width: {{ progress_percent }}%"></div>
+</div>
+<p>Progress: {{ progress_percent }}% ({{ completed_steps }}/{{ total_steps }} steps)</p>
+
+<div class="list-group">
+    {% for i, step in enumerate(steps) %}
+        <div class="list-group-item {% if i < completed_steps %}list-group-item-success{% else %}list-group-item-secondary{% endif %}">
+            <h5>{{ step }}</h5>
+            {% if i < completed_steps %}
+                <span class="badge bg-success">Completed</span>
+            {% else %}
+                <a href="{{ url_for('progress.quiz', step_index=i) }}" class="btn btn-primary btn-sm">Take Quiz to Complete</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+{% endblock %}
